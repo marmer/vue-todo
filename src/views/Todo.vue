@@ -5,8 +5,16 @@
         <div>
           <label>
             {{ task.id }}
-            <span>{{ task.description }}</span>
-            <input type="checkbox" v-model="task.done" />
+            <input
+              type="text"
+              v-model="task.description"
+              v-on:change="save(task)"
+            />
+            <input
+              type="checkbox"
+              v-model="task.done"
+              v-on:change="save(task)"
+            />
           </label>
         </div>
       </li>
@@ -26,6 +34,10 @@ export default class Todo extends Vue {
   }
 
   @Prop() private tasks: Task[];
+
+  save(task: Task) {
+    this.tasks = TaskRepository.storeTask(task);
+  }
 }
 </script>
 

@@ -7,6 +7,14 @@ export function loadTasks(): Task[] {
 
 export function storeTask(task: Task) {
   const tasks = loadTasks();
-  tasks.push(task);
+
+  const taskIndex = tasks.findIndex(t => t.id === task.id);
+  if (taskIndex === -1) {
+    tasks.push(task);
+  } else {
+    tasks[taskIndex] = task;
+  }
+
   localStorage.setItem("tasks", JSON.stringify(tasks));
+  return tasks;
 }
