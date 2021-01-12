@@ -1,14 +1,16 @@
 <template>
   <div class="todo">
-    <ol>
+    <ul>
       <li v-bind:key="task.id" v-for="task in tasks">
         <div>
-          <span>{{ task.description }}</span>
-          |
-          <span>{{ task.id }}</span>
+          <label>
+            {{ task.id }}
+            <span>{{ task.description }}</span>
+            <input type="checkbox" v-model="task.done" />
+          </label>
         </div>
       </li>
-    </ol>
+    </ul>
   </div>
 </template>
 
