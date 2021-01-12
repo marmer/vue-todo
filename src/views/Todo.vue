@@ -17,6 +17,10 @@
             />
           </label>
         </div>
+        <button type="button" v-on:click="remove(task)">-</button>
+      </li>
+      <li>
+        <button type="button" v-on:click="addNew()">add</button>
       </li>
     </ul>
   </div>
@@ -37,6 +41,14 @@ export default class Todo extends Vue {
 
   save(task: Task) {
     this.tasks = TaskRepository.storeTask(task);
+  }
+
+  remove(task: Task) {
+    this.tasks = TaskRepository.removeTask(task);
+  }
+
+  addNew() {
+    this.tasks = TaskRepository.storeTask(new Task(""));
   }
 }
 </script>

@@ -5,6 +5,13 @@ export function loadTasks(): Task[] {
   return currentTasks ? JSON.parse(currentTasks) : [];
 }
 
+export function removeTask(task: Task) {
+  const tasks = loadTasks().filter(t => t.id === task.id);
+
+  localStorage.setItem("tasks", JSON.stringify(tasks));
+  return tasks;
+}
+
 export function storeTask(task: Task) {
   const tasks = loadTasks();
 
