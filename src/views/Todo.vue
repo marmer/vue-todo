@@ -8,19 +8,12 @@
             <input
               type="text"
               v-model="task.description"
-              v-on:change="save(task)"
+              v-on:keyup="save(task)"
             />
-            <input
-              type="checkbox"
-              v-model="task.done"
-              v-on:change="save(task)"
-            />
+            <input type="checkbox" v-model="task.done" />
           </label>
         </div>
         <button type="button" v-on:click="remove(task)">-</button>
-      </li>
-      <li>
-        <button type="button" v-on:click="addNew()">add</button>
       </li>
     </ul>
   </div>
@@ -35,19 +28,35 @@ export default class Todo extends Vue {
   constructor() {
     super();
     this.tasks = TaskRepository.loadTasks();
-    console.log(`initial load`);
+    this.handleLast();
   }
 
   @Prop() private tasks: Task[];
 
   save(task: Task) {
     this.tasks = TaskRepository.storeTask(task);
+    this.handleLast();
+  }
+
+  saveAll() {
+    this.tasks.forEach(task => this.save(task));
+
+    this.$forceUpdate();
   }
 
   remove(task: Task) {
     this.tasks = TaskRepository.removeTask(task);
 
     this.$forceUpdate();
+  }
+
+  handleLast() {
+    if (
+      this.tasks.length === 0 ||
+      this.tasks[this.tasks.length - 1].description.length > 0
+    ) {
+      this.addNew();
+    }
   }
 
   addNew() {
