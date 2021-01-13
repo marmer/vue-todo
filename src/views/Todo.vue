@@ -35,20 +35,24 @@ export default class Todo extends Vue {
   constructor() {
     super();
     this.tasks = TaskRepository.loadTasks();
+    console.log(`initial load`);
   }
 
   @Prop() private tasks: Task[];
 
   save(task: Task) {
     this.tasks = TaskRepository.storeTask(task);
+    console.log(`saved: ${task}`);
   }
 
   remove(task: Task) {
     this.tasks = TaskRepository.removeTask(task);
+    console.log(`removed: ${task}`);
   }
 
   addNew() {
     this.tasks = TaskRepository.storeTask(new Task(""));
+    console.log(`added: new`);
   }
 }
 </script>

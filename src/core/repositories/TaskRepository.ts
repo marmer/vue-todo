@@ -6,7 +6,7 @@ export function loadTasks(): Task[] {
 }
 
 export function removeTask(task: Task) {
-  const tasks = loadTasks().filter(t => t.id === task.id);
+  const tasks = loadTasks().filter(t => t.id !== task.id);
 
   localStorage.setItem("tasks", JSON.stringify(tasks));
   return tasks;
