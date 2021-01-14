@@ -43,12 +43,6 @@ export default class Todo extends Vue {
     this.handleLast();
   }
 
-  saveAll() {
-    this.tasks.forEach(task => this.save(task));
-
-    this.$forceUpdate();
-  }
-
   remove(task: Task) {
     this.tasks = TaskRepository.removeTask(task);
 
