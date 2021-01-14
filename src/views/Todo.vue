@@ -3,17 +3,16 @@
     <ul>
       <li v-bind:key="task.id" v-for="task in tasks">
         <div>
-          <label>
-            {{ task.id }}
+          <label :title="task.id">
+            <input type="checkbox" v-model="task.done" />
             <input
               type="text"
               v-model="task.description"
               v-on:keyup="save(task)"
             />
-            <input type="checkbox" v-model="task.done" />
+            <button type="button" v-on:click="remove(task)" :disabled="isLast(task)">-</button>
           </label>
         </div>
-        <button type="button" v-on:click="remove(task)">-</button>
       </li>
     </ul>
   </div>
@@ -48,6 +47,10 @@ export default class Todo extends Vue {
     this.tasks = TaskRepository.removeTask(task);
 
     this.$forceUpdate();
+  }
+
+  isLast(task: Task) {
+    return this.tasks.length && this.tasks.lastIndexOf(task) === this.tasks.length - 1;
   }
 
   handleLast() {
