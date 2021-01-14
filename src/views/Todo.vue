@@ -10,7 +10,13 @@
               v-model="task.description"
               v-on:keyup="save(task)"
             />
-            <button type="button" v-on:click="remove(task)" :disabled="isLast(task)">-</button>
+            <button
+              type="button"
+              v-on:click="remove(task)"
+              :disabled="isLast(task)"
+            >
+              -
+            </button>
           </label>
         </div>
       </li>
@@ -50,16 +56,23 @@ export default class Todo extends Vue {
   }
 
   isLast(task: Task) {
-    return this.tasks.length && this.tasks.lastIndexOf(task) === this.tasks.length - 1;
+    return (
+      this.tasks.length &&
+      this.tasks.lastIndexOf(task) === this.tasks.length - 1
+    );
   }
 
   handleLast() {
-    if (
-      this.tasks.length === 0 ||
-      this.tasks[this.tasks.length - 1].description.length > 0
-    ) {
+    if (this.lastTaskIsNotEmpty()) {
       this.addNew();
     }
+  }
+
+  private lastTaskIsNotEmpty() {
+    return (
+      this.tasks.length === 0 ||
+      this.tasks[this.tasks.length - 1].description.length > 0
+    );
   }
 
   addNew() {
